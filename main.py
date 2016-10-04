@@ -16,11 +16,11 @@ names_data = ['Adler - T', 'Adrion - S', 'Allan - A', 'Avrunin - S', 'Barto - A'
 category_data = ['T', 'S', 'A', 'S', 'A', 'T', 'S', 'A', 'S', 'S', 'A', 'S', 'A', 'A', 'T', 'A', 'S', 'S', 'A', 'A', 'A',\
               'S', 'A', 'A', 'A', 'A', 'S', 'S', 'A', 'A', 'T', 'A', 'S', 'T', 'S', 'A', 'S', 'S', 'S', 'A']
 
-affinity_mat = np.zeros(graph_data.shape)
-sigma = 1
-for i in range(graph_data.shape[0]):
-    for j in range(graph_data.shape[0]):
-        affinity_mat[i][j] = np.exp(-((np.sum(np.square(graph_data[i] - graph_data[j])))/(2*(sigma**2))))
+#affinity_mat = np.zeros(graph_data.shape)
+#sigma = 1
+#for i in range(graph_data.shape[0]):
+#    for j in range(graph_data.shape[0]):
+#        affinity_mat[i][j] = np.exp(-((np.sum(np.square(graph_data[i] - graph_data[j])))/(2*(sigma**2))))
 
 affinity_mat = graph_data
 
@@ -33,7 +33,7 @@ laplacian_mat = np.sqrt(np.linalg.inv(row_sum_diag_mat)).dot(affinity_mat).dot(n
 
 eigen_vals, eigen_vecs = np.linalg.eig(laplacian_mat)
 sorted_val_indices = np.argsort(eigen_vals)
-sorted_val_indices = sorted_val_indices[::-1]
+sorted_val_indices = sorted_val_indices[::-1] #flipping the array for descending order
 
 k = 6
 
@@ -43,7 +43,7 @@ for i in range (0,k):
     eigen_mat[:,i] = eigen_vecs[:,sorted_val_indices[i]]
 
 eigen_row_sums = np.sqrt(np.sum(np.square(eigen_mat) ,axis=1) )
-print eigen_row_sums
+#print eigen_row_sums
 normalized_eigen_mat = eigen_mat / eigen_row_sums[:, np.newaxis]  #row_sums[:, numpy.newaxis] reshapes row_sums from being (3,) to being (3, 1). When you do a / b, a and b are broadcast against each other.
 
 
@@ -68,7 +68,11 @@ for i in range(0,k):
     count[i] = c
 
 for i in range(k):
-    print count[i]
+    #print count[i]
+    print "Class: " + str(i)
+    print mapping[i]
+
+
 
 
 
